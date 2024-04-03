@@ -7,9 +7,25 @@ public class Medico {
     private String lastNames;
     private int idSpecialty;
 
+    private Specialty specialty;
+
     //Constructor
 
     public Medico() {
+    }
+
+    public Medico(int id, String names, String lastNames, int idSpecialty, Specialty specialty) {
+        this.id = id;
+        this.names = names;
+        this.lastNames = lastNames;
+        this.idSpecialty = idSpecialty;
+        this.specialty = specialty;
+    }
+
+    public Medico(String names, String lastNames, int idSpecialty) {
+        this.names = names;
+        this.lastNames = lastNames;
+        this.idSpecialty = idSpecialty;
     }
 
     public Medico(int id, String names, String lastNames, int idSpecialty) {
@@ -29,6 +45,10 @@ public class Medico {
                 ", lastNames='" + lastNames + '\'' +
                 ", idSpecialty=" + idSpecialty +
                 '}';
+    }
+
+    public String medicoInformation(){
+        return "▶ ID: " + id + "-  Name: " + names + " - Last names: " + lastNames + "- Specialty: " + specialty.getName() + "\n" ;
     }
 
     //Getters and Setters
@@ -63,5 +83,13 @@ public class Medico {
 
     public void setIdSpecialty(int idSpecialty) {
         this.idSpecialty = idSpecialty;
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
     }
 }

@@ -101,4 +101,24 @@ public class SpecialtyController {
             objSpecialtyModel.update(objSpecialty);
         }
     }
+
+    public static void searchById(){
+        SpecialtyModel objSpecialtyModel = new SpecialtyModel();
+
+        int id = Integer.parseInt(JOptionPane.showInputDialog(null, "Seacrh by Specialty ID\n Enter Specialty's ID:"));
+
+        Specialty objSpecialty = objSpecialtyModel.findById(id);
+
+        if (objSpecialty == null) {
+            JOptionPane.showMessageDialog(null, "Specialty not found");
+        } else {
+            String infoSpecialty = "";
+            infoSpecialty +=
+                    "Specialty information:\n\n" +
+                            "ID: " + objSpecialty.getId() + "\n" +
+                            "Name: " + objSpecialty.getName() + "\n" +
+                            "Description: " + objSpecialty.getDescription() + "\n";
+            JOptionPane.showMessageDialog(null, "\n"+ infoSpecialty, "Riwi Appointment-Specialty", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 }

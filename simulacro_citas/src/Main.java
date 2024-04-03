@@ -1,3 +1,4 @@
+import controller.MedicoController;
 import controller.SpecialtyController;
 import database.ConfigDB;
 
@@ -80,14 +81,19 @@ public class Main {
 
                         switch (optionMenuInternos) {
                             case "1":
+                                MedicoController.create();
                                 break;
                             case "2":
+                                MedicoController.update();
                                 break;
                             case "3":
+                                MedicoController.delete();
                                 break;
                             case "4":
+                                MedicoController.getAllMedicos();
                                 break;
                             case "5":
+                                MedicoController.getByIdSpecialty();
                                 break;
                             case "6":
                                 JOptionPane.showMessageDialog(null, "Going to main menu..📨", "Riwi Appointment", JOptionPane.INFORMATION_MESSAGE);

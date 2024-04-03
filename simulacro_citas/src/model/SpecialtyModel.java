@@ -87,7 +87,7 @@ public class SpecialtyModel implements CRUD {
         boolean isUpdate = false;
 
         try{
-            String sql = "UPDATE specialty SET name = ? , description = ? WHERE id = ';";
+            String sql = "UPDATE specialty SET name = ? , description = ? WHERE id = ?';";
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 
