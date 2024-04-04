@@ -4,6 +4,7 @@ import entity.Medico;
 import entity.Specialty;
 import model.MedicoModel;
 import model.SpecialtyModel;
+import utilities.Utils;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -14,32 +15,24 @@ public class MedicoController {
         ////Create and use the Book model
         MedicoModel objMedicoModel = new MedicoModel();
         SpecialtyModel objSpecialtyModel = new SpecialtyModel();
-        String listSpecialtys = "";
-        listSpecialtys = SpecialtyController.getAllSpecialties(listSpecialtys);
 
         ///Request data to fill the objMedico
         String names = JOptionPane.showInputDialog("Insert Medico names");
-        String lastNames = JOptionPane.showInputDialog("Insert Medico lastNames");
-        List<Object> list = objSpecialtyModel.findAll();
-        Specialty[] arrSpecialty = new  Specialty[list.size()];
+        String lastNames = JOptionPane.showInputDialog("Insert Medico last names");
 
-        int index = 0;
-        for (Object ite : list){
-            Specialty objSpecialty = (Specialty) ite;
-            arrSpecialty[index] = objSpecialty;
-            index++;
-        }
+        //Creaccion de lista para recorrer comboBox
+        Object[] arrSpecialty  =  Utils.listToArray(objSpecialtyModel.findAll());
 
-        Specialty idSpecialty = (Specialty) JOptionPane.showInputDialog(null,
-                "Insert Specialtys ID ",
-                "",
+        Specialty specialty = (Specialty) JOptionPane.showInputDialog(null,
+                "Insert Specialty ",
+                "Specialty medico",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 arrSpecialty,
                 arrSpecialty[0]);
 
         //Create an instance of Specialty and fill in the objMedico2
-        Medico objMedico = new Medico(names, lastNames, idSpecialty.getId());
+        Medico objMedico = new Medico(names, lastNames, specialty.getId(), specialty);
         // //We call the insertion method
         //Here we call the function made in the model to retrieve the id of the object, i.e. we take the data to fill the record, and then return certain values.
         objMedico = (Medico) objMedicoModel.insert(objMedico);
@@ -101,6 +94,7 @@ public class MedicoController {
     public static void update(){
         // 1. Utilizar el modelo
         MedicoModel objMedicoModel = new MedicoModel();
+        SpecialtyModel objSpecialtyModel = new SpecialtyModel();
 
         String listMedicos = "";
         listMedicos = getAllMedicos(listMedicos);
@@ -114,12 +108,21 @@ public class MedicoController {
             JOptionPane.showMessageDialog(null, "Medico not found");
         } else {
             String names = JOptionPane.showInputDialog(null, "Enter new Names:" , objMedico.getNames());
-            String lastNames = JOptionPane.showInputDialog(null, "Enter new last names:" , objMedico.getLastNames());
-            int idSpecialty = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter new Specialty's ID", objMedico.getIdSpecialty()));
+            String lastNames = JOptionPane.showInputDialog(null, "Select new Specialty's ID" , objMedico.getLastNames());
+            Object[] arrSpecialty  =  Utils.listToArray(objSpecialtyModel.findAll());
+
+            Specialty specialty = (Specialty) JOptionPane.showInputDialog(null,
+                    "Insert Specialty ",
+                    "Specialty medico",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    arrSpecialty,
+                    arrSpecialty[0]);
 
             objMedico.setNames(names);
             objMedico.setLastNames(lastNames);
-            objMedico.setIdSpecialty(idSpecialty);
+            objMedico.setIdSpecialty(specialty.getId());
+            objMedico.setSpecialty(specialty);
             objMedicoModel.update(objMedico);
 
         }
@@ -127,24 +130,6 @@ public class MedicoController {
 
 
     }
-
-//    public static void searchByName() {
-//        MedicoModel objMedicoModel = new MedicoModel();
-//
-//        String name = JOptionPane.showInputDialog(null, "Enter Medico's title to search 🔎🔎");
-//
-//        ArrayList<Medico> MedicoList = objMedicoModel.findByTitle(name);
-//
-//        if (MedicoList.isEmpty()) {
-//            JOptionPane.showMessageDialog(null, "Medico not found");
-//        } else {
-//            String list = "Coincidence with the title \" "+ name +" \" \n";
-//            for (Medico Medico : MedicoList) {
-//                list += Medico.MedicoInformationbyTitle() + "\n";
-//            }
-//            JOptionPane.showMessageDialog(null, "List Medicos \n"+ list);
-//        }
-//    }
 
     public static void searchById(){
         MedicoModel objMedicoModel = new MedicoModel();
@@ -171,26 +156,18 @@ public class MedicoController {
         MedicoModel objMedicoModel = new MedicoModel();
         SpecialtyModel objSpecialtyModel = new SpecialtyModel();
 
-        List<Object> list = objSpecialtyModel.findAll();
-        Specialty[] arrSpecialty = new  Specialty[list.size()];
+        Object[] arrSpecialty  =  Utils.listToArray(objSpecialtyModel.findAll());
 
-        int index = 0;
-        for (Object ite : list){
-            Specialty objSpecialty = (Specialty) ite;
-            arrSpecialty[index] = objSpecialty;
-            index++;
-        }
-
-        Specialty idSearch = (Specialty) JOptionPane.showInputDialog(null,
-                "Insert Specialtys ID to search",
-                "",
+        Specialty specialty = (Specialty) JOptionPane.showInputDialog(null,
+                "Insert Specialty ",
+                "Specialty medico",
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 arrSpecialty,
-                arrSpecialty[0].getName());
+                arrSpecialty[0]);
 
-        String listMedicos = "LIST " +idSearch.getName() + " MedicoS \n";
-        for (Medico iterator:objMedicoModel.findByIdSpecialty(idSearch.getId())){
+        String listMedicos = "LIST " +specialty.getName() + " Medicos \n";
+        for (Medico iterator:objMedicoModel.findByIdSpecialty(specialty.getId())){
             listMedicos += iterator.medicoInformation() + "\n";
         }
         JOptionPane.showMessageDialog(null,listMedicos);

@@ -1,4 +1,6 @@
+import controller.AppointmentController;
 import controller.MedicoController;
+import controller.PatientController;
 import controller.SpecialtyController;
 import database.ConfigDB;
 
@@ -122,14 +124,19 @@ public class Main {
 
                         switch (optionMenuInternos) {
                             case "1":
+                                PatientController.create();
                                 break;
                             case "2":
+                                PatientController.update();
                                 break;
                             case "3":
+                                PatientController.delete();
                                 break;
                             case "4":
+                                PatientController.getAllPatients();
                                 break;
                             case "5":
+                                PatientController.searchByDocument();
                                 break;
                             case "6":
                                 JOptionPane.showMessageDialog(null, "Going to main menu..📨", "Riwi Appointment", JOptionPane.INFORMATION_MESSAGE);
@@ -158,14 +165,19 @@ public class Main {
 
                         switch (optionMenuInternos) {
                             case "1":
+                                AppointmentController.create();
                                 break;
                             case "2":
+                                AppointmentController.update();
                                 break;
                             case "3":
+                                AppointmentController.delete();
                                 break;
                             case "4":
+                                AppointmentController.getAllAppointments();
                                 break;
                             case "5":
+                                AppointmentController.searchByDate();
                                 break;
                             case "6":
                                 JOptionPane.showMessageDialog(null, "Going to main menu..📨", "Riwi Appointment", JOptionPane.INFORMATION_MESSAGE);

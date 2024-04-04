@@ -1,23 +1,26 @@
 package entity;
-import java.time.LocalDate; //Representa una fecha sin zona horaria en el sistema de calendario ISO-8601, como “2007-12-03”.
-import java.time.LocalTime; //Representa la hora sin zona horaria en el sistema de calendario ISO-8601, como “10:15:30”.
+
+import java.sql.Date;
 
 public class Appointment {
     //Attributes
     private int id;
-    private int idPatient;
-    private int idMedico;
-    private LocalDate date;
-    private LocalTime time;
+
+    private Patient patient;
+
+    private Medico medico;
+    private Date date;
+    private String time;
     private String reason;
+
+
     //Constructor
     public Appointment() {
     }
 
-    public Appointment(int id, int idPatient, int idMedico, LocalDate date, LocalTime time, String reason) {
-        this.id = id;
-        this.idPatient = idPatient;
-        this.idMedico = idMedico;
+    public Appointment(Patient patient, Medico medico, Date date, String time, String reason) {
+        this.patient = patient;
+        this.medico = medico;
         this.date = date;
         this.time = time;
         this.reason = reason;
@@ -29,15 +32,25 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
-                ", idPatient=" + idPatient +
-                ", idMedico=" + idMedico +
+                ", idPatient=" + patient.getId() +
+                ", idMedico=" + medico.getId() +
                 ", date=" + date +
                 ", time=" + time +
                 ", reason='" + reason + '\'' +
                 '}';
     }
 
+    public String AppointmentInformation (){
+        return "Appointment Information \n" +
+                "Patient name: " + patient.getNames() + " " + patient.getLastNames() + "\n" +
+                "Medico name : " + medico.getNames() + " " + medico.getLastNames() +"\n" +
+                "Date: " + date + "\n" +
+                "time: " + time + "\n" +
+                "reasons: " + reason;
+    }
+
     //Getters and Setters
+
 
     public int getId() {
         return id;
@@ -47,35 +60,35 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getIdPatient() {
-        return idPatient;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setIdPatient(int idPatient) {
-        this.idPatient = idPatient;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public int getIdMedico() {
-        return idMedico;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setIdMedico(int idMedico) {
-        this.idMedico = idMedico;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

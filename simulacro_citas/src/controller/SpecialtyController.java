@@ -11,7 +11,7 @@ public class SpecialtyController {
         SpecialtyModel objSpecialtyModel = new SpecialtyModel();
 
         String name = JOptionPane.showInputDialog(null,"Insert name");
-        String description = JOptionPane.showInputDialog(null,"Insert name");
+        String description = JOptionPane.showInputDialog(null,"Insert description");
 
         Specialty objSpecialty = new Specialty();
 

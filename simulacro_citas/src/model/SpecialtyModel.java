@@ -5,7 +5,6 @@ import database.ConfigDB;
 import entity.Specialty;
 
 import javax.swing.*;
-import java.lang.module.Configuration;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,7 +86,7 @@ public class SpecialtyModel implements CRUD {
         boolean isUpdate = false;
 
         try{
-            String sql = "UPDATE specialty SET name = ? , description = ? WHERE id = ?';";
+            String sql = "UPDATE specialty SET name = ? , description = ? WHERE id = ?;";
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 

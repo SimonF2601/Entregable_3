@@ -21,11 +21,14 @@ public class Specialty {
 
     @Override
     public String toString() {
-        return "Specialty{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return name;
+    }
+
+    public String information(){
+        return  name + "\n" +
+                "Description: \n" +
+                description ;
+
     }
 
     //Getters and Setters

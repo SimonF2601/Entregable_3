@@ -1,12 +1,12 @@
 package entity;
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Patient {
     //Attributes
     private int id;
     private String names;
     private String lastNames;
-    private LocalDate dateBorn;
+    private Date dateBorn;
     private String identityDocument;
 
     //Constructor
@@ -14,10 +14,18 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(int id, String names, String lastNames, String identityDocument) {
+    public Patient(int id, String names, String lastNames, Date dateBorn, String identityDocument) {
         this.id = id;
         this.names = names;
         this.lastNames = lastNames;
+        this.dateBorn = dateBorn;
+        this.identityDocument = identityDocument;
+    }
+
+    public Patient(String names, String lastNames, Date dateBorn, String identityDocument) {
+        this.names = names;
+        this.lastNames = lastNames;
+        this.dateBorn = dateBorn;
         this.identityDocument = identityDocument;
     }
     //Methods
@@ -67,11 +75,11 @@ public class Patient {
         this.identityDocument = identityDocument;
     }
 
-    public LocalDate getDateBorn() {
+    public Date getDateBorn() {
         return dateBorn;
     }
 
-    public void setDateBorn(LocalDate dateBorn) {
+    public void setDateBorn(Date dateBorn) {
         this.dateBorn = dateBorn;
     }
 }

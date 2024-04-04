@@ -14,8 +14,8 @@ public class Medico {
     public Medico() {
     }
 
-    public Medico(int id, String names, String lastNames, int idSpecialty, Specialty specialty) {
-        this.id = id;
+    public Medico( String names, String lastNames, int idSpecialty, Specialty specialty) {
+
         this.names = names;
         this.lastNames = lastNames;
         this.idSpecialty = idSpecialty;
@@ -48,7 +48,7 @@ public class Medico {
     }
 
     public String medicoInformation(){
-        return "▶ ID: " + id + "-  Name: " + names + " - Last names: " + lastNames + "- Specialty: " + specialty.getName() + "\n" ;
+        return "▶ ID: " + id + " -  Name: " + names + " " + lastNames + "- Specialty: " + specialty.getName() +  "\n" ;
     }
 
     //Getters and Setters

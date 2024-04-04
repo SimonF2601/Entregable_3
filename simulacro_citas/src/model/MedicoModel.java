@@ -30,7 +30,7 @@ public class MedicoModel implements CRUD {
 
             objPrepare.setString(1, objMedico.getNames());
             objPrepare.setString(2, objMedico.getLastNames());
-            objPrepare.setInt(3, objMedico.getIdSpecialty());
+            objPrepare.setInt(3, objMedico.getSpecialty().getId());
 
             objPrepare.execute();
 
@@ -57,7 +57,7 @@ public class MedicoModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
 
         try {
-            String sql = "SELECT * FROM medico;";
+            String sql = "SELECT * FROM medico INNER JOIN specialty on medico.id_specialty = specialty.id;";
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 
@@ -65,11 +65,17 @@ public class MedicoModel implements CRUD {
 
             while (objResult.next()) {
                 Medico objMedico = new Medico();
+                Specialty objSpecialty = new Specialty();
+
+                objSpecialty.setId(objResult.getInt("specialty.id"));
+                objSpecialty.setName(objResult.getString("specialty.name"));
+                objSpecialty.setDescription(objResult.getString("specialty.Description"));
 
                 objMedico.setId(objResult.getInt(1));
                 objMedico.setNames(objResult.getString(2));
                 objMedico.setLastNames(objResult.getString(3));
                 objMedico.setIdSpecialty(objResult.getInt(4));
+                objMedico.setSpecialty(objSpecialty);
 
                 listMedico.add(objMedico);
             }
@@ -91,7 +97,7 @@ public class MedicoModel implements CRUD {
         boolean isUpdate = false;
 
         try{
-            String sql = "UPDATE medico SET names = ? , last_names = ?, id_specialty WHERE id = ?';";
+            String sql = "UPDATE medico SET names = ? , last_names = ?, id_specialty = ? WHERE id = ?;";
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 
@@ -156,7 +162,7 @@ public class MedicoModel implements CRUD {
 
         try{
             //3. Sentencia SQL
-            String sql ="SELECT * FROM medico Where id = ?;";
+            String sql ="SELECT * FROM medico INNER JOIN  specialty ON medico.id_specialty = specialty.id Where medico.id = ?;";
 
             //4. Preparar el statement
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
@@ -169,10 +175,17 @@ public class MedicoModel implements CRUD {
 
             if (objResult.next()){//Definicion del next
                 objMedico = new Medico();
-                objMedico.setId(objResult.getInt("id"));
-                objMedico.setNames(objResult.getString("names"));
-                objMedico.setLastNames(objResult.getString("last_names"));
-                objMedico.setIdSpecialty(objResult.getInt("id_specialty"));
+                objMedico.setId(objResult.getInt("medico.id"));
+                objMedico.setNames(objResult.getString("medico.names"));
+                objMedico.setLastNames(objResult.getString("medico.last_names"));
+                objMedico.setIdSpecialty(objResult.getInt("medico.id_specialty"));
+
+                Specialty objSpecialty = new Specialty();
+                objSpecialty.setId(objMedico.getIdSpecialty());
+                objSpecialty.setName(objResult.getString("specialty.name"));
+                objSpecialty.setDescription(objResult.getString("specialty.description"));
+
+                objMedico.setSpecialty(objSpecialty);
             }
 
         }catch (Exception e){
@@ -219,7 +232,7 @@ public class MedicoModel implements CRUD {
                 Specialty objSpecialty = new Specialty();
                 objSpecialty.setId(objMedico.getIdSpecialty());
                 objSpecialty.setName(objResult.getString("specialty.name"));
-                objSpecialty.setDescription(objResult.getString("specialty.description "));
+                objSpecialty.setDescription(objResult.getString("specialty.description"));
                 objMedico.setSpecialty(objSpecialty);
 
                 MedicoList.add(objMedico);
